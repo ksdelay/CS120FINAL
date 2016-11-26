@@ -55,19 +55,19 @@ void Asteroid::setSize(double size) {
 	this->size = size;
 }
 void Asteroid::setDirection(Direction direction) {
-	this->direction.setDirection(direction.getXComponent, direction.getYComponent);
+	this->direction.setDirection(direction.getXComponent(), direction.getYComponent());
 }
 
 void Asteroid::move() {
-	if ((xLocation + speed*direction.getXComponent) <= 0 || (xLocation + speed*direction.getXComponent) >= 250) { // the 250 value is dependent on the size of the game's window pane
-		direction.setXComponent(direction.getXComponent*-1);
+	if ((xLocation + speed*direction.getXComponent()) <= 0 || (xLocation + speed*direction.getXComponent()) >= 250) { // the 250 value is dependent on the size of the game's window pane
+		direction.setXComponent(direction.getXComponent()*-1);
 	}
 	if ((yLocation - speed) < -5) {
 		respawn();
 	}
 	else {
 		yLocation = yLocation - speed;
-		xLocation = xLocation + speed*direction.getXComponent;
+		xLocation = xLocation + speed*direction.getXComponent();
 	}
 }
 

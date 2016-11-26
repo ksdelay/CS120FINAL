@@ -42,4 +42,10 @@ void Direction::normalize() {
 	double angle = atan(yComponent / xComponent);
 	yComponent = sin(angle);
 	xComponent = cos(angle);
+	if (abs(xComponent) < 0.001) {
+		xComponent = 0;
+	}
+	if (abs(yComponent) < 0.001) {
+		yComponent = 0;
+	}
 }
