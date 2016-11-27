@@ -1,15 +1,19 @@
 //
 // Created by Nick Medor on 11/26/2016
+// Edited by Junchi Li on 11/27/2016
 //
 
 #include "Asteroid.h"
 #include <iostream>
 #include <string>
+#include "Player.h"
 using namespace std;
 
 void testClasses();
 void directionGetters(Direction direction);
 void asteroidGetters(Asteroid asteroid);
+void bulletGetters(Bullet bullet);
+void playerGetters(Player player);
 
 int main() {
 
@@ -149,6 +153,149 @@ void testClasses() {
 	cout << "After hit:\n";
 	asteroidGetters(asteroid2);
 
+	// Test Bullet class
+	cout << "Testing the Bullet class:\n";
+	cout << endl;
+
+	// Test default constructor and getters
+	Bullet bullet1;
+	cout << "The default Bullet should have an x and y location\n";
+	cout << "of 0, a speed and size of 5 and 0, and a direction with an\n";
+	cout << "x and y component of 0 and 1 , respectively:\n";
+	bulletGetters(bullet1);
+
+	// Test non-default constructor:
+	Bullet bullet2(10, 15);
+	cout << "The non-default Bullet should have an x and y location\n";
+	cout << "of 10 and 15, a speed and size of 5 and 1, and a direction with an\n";
+	cout << "x and y component of 0 and 1 , respectively:\n";
+	bulletGetters(bullet2);
+
+	// Test setters:
+	bullet1.setXLocation(50);
+	bullet1.setYLocation(60);
+	bullet1.setSize(2);
+	bullet1.setSpeed(1.5);
+	cout << "The values x location, y location, speed, and size\n";
+	cout << "should change to 50, 60, 1.5, and 2, and\n";
+	cout << "the direction x and y should be 0 and 1,respectively: \n";
+	bulletGetters(bullet1);
+
+	// Test move:
+
+	bullet1.BulletMove();
+	cout << "The x and y location should change accordingly:\n";
+	bulletGetters(bullet1);
+
+	// Test if bullet touch the top of window pane
+	bullet2.setYLocation(249);
+	cout << "The size of the bullet should become 0:\n";
+	cout << "Before:\n";
+	bulletGetters(bullet2);
+	bullet2.BulletMove();
+	cout << "After:\n";
+	bulletGetters(bullet2);
+
+	//Test player class
+	cout << "Testing the player class:\n";
+	cout << endl;
+
+	//Test default constructor and getters
+	Player player1;
+	cout << "The default player should have an x and y location\n";
+	cout << "of 0, a points of 0,a user name of "" and a direction with an\n";
+	cout << "x and y component of 1 and 0 , respectively:\n";
+	playerGetters(player1);
+
+	//Test non-default constructor
+	Player player2("Jerry",10,15);
+	cout << "The default player should have an x and y location\n";
+	cout << "of 10 and 15, a points of 0,a user name of 'Jerry' and a direction with an\n";
+	cout << "x and y component of 1 and 0 , respectively:\n";
+	playerGetters(player2);
+
+	//Test setters
+	Direction direction3(1, 0);
+	player2.setUserName("Ben");
+	player2.setDirection(direction3);
+	player2.setPoints(100);
+	player2.setXLocation(50);
+	player2.setYLocation(40);
+	cout << "The default player should have an x and y location\n";
+	cout << "of 50 and 40, a points of 100,a user name of 'Ben' and a direction with an\n";
+	cout << "x and y component of 1 and 0 , respectively:\n";
+	playerGetters(player2);
+
+	//Test shoot
+	cout << "Test shoot\n";
+	cout << "Before:\n";
+	playerGetters(player2);
+	cout << "shoot bullet:\n";
+	bulletGetters(player2.getShootBullet());
+	cout << "After:\n";
+	cout << "Shoot Bullet's x and y location should change accordingly\n";
+	player2.playerShoot();
+	playerGetters(player2);
+	cout << "shoot bullet:\n";
+	bulletGetters(player2.getShootBullet());
+
+	//Test move
+	cout << "Test move\n";
+	cout << "The x and y location should change accordingly\n";
+	player2.playerMove();
+	playerGetters(player2);
+
+	//Test move to right of window pane
+	cout << "Test move to right of window pane\n";
+	player2.setXLocation(250);
+	cout << "x location should not change\n";
+	cout << "Before:\n";
+	playerGetters(player2);
+	player2.playerMove();
+	cout << "After:\n";
+	playerGetters(player2);
+
+	//Test move to left of window pane
+	cout << "Test move to left of window pane\n";
+	Direction direction4(-1,0);
+	player2.setDirection(direction4);
+	player2.setXLocation(0);
+	cout << "x location should not change\n";
+	cout << "Before:\n";
+	playerGetters(player2);
+	player2.playerMove();
+	cout << "After:\n";
+	playerGetters(player2);
+
+	//Test move to top of window pane
+	cout << "Test move to top of window pane\n";
+	Direction direction5(0, 1);
+	player2.setDirection(direction5);
+	player2.setYLocation(250);
+	cout << "y location should not change\n";
+	cout << "Before:\n";
+	playerGetters(player2);
+	player2.playerMove();
+	cout << "After:\n";
+	playerGetters(player2);
+
+	//Test move to bottom of window pane
+	cout << "Test move to bottom of window pane\n";
+	Direction direction6(0, -1);
+	player2.setDirection(direction6);
+	player2.setYLocation(0);
+	cout << "y location should not change\n";
+	cout << "Before:\n";
+	playerGetters(player2);
+	player2.playerMove();
+	cout << "After:\n";
+	playerGetters(player2);
+
+	//??I just set direction4 (-1,0), but direction normalize it to (1,0),so my test player move to left has failed.
+	// here is the test for direction(-1,0)
+	Direction direction7(-1, 0);
+	cout << direction7.getXComponent() << endl;
+	cout << direction7.getYComponent() << endl;
 }
 
 void directionGetters(Direction direction) {
@@ -164,4 +311,24 @@ void asteroidGetters(Asteroid asteroid) {
 	cout << "Size: " << asteroid.getSize() << endl;
 	cout << "Direction fields:\n";
 	directionGetters(asteroid.getDirection());
+}
+
+void bulletGetters(Bullet bullet) {
+	cout << "x Location: " << bullet.getXLocation() << endl;
+	cout << "y Location: " << bullet.getYLocation() << endl;
+	cout << "Speed: " << bullet.getSpeed() << endl;
+	cout << "Size: " << bullet.getSize() << endl;
+	cout << "Bullet Direction fields:\n";
+	directionGetters(bullet.getDirection());
+}
+
+void playerGetters(Player player) {
+	cout << "x Location: " << player.getXLocation() << endl;
+	cout << "y Location: " << player.getYLocation() << endl;
+	cout << "points: " << player.returnPoints() << endl;
+	cout << "user name: " << player.getUserName() << endl;
+	cout << "Direction fields:\n";
+	directionGetters(player.getDirection());
+	cout << "Bullet fields:\n";
+	bulletGetters(player.getBullet());
 }
