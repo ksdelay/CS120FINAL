@@ -6,6 +6,7 @@
 #include "Asteroid.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Player.h"
 using namespace std;
 
@@ -14,11 +15,64 @@ void directionGetters(Direction direction);
 void asteroidGetters(Asteroid asteroid);
 void bulletGetters(Bullet bullet);
 void playerGetters(Player player);
+void testFileIO();
 
 int main() {
 
 	testClasses();
-
+	//testFileIO();
+	
+	string response;
+	Player player;
+	cout << endl << "Would you like to load a previous game? (y/n)\n";
+	cin >> response;
+	if (response == "y") {
+		cout << "Which game would you like to load? (enter the number)\n";
+		ifstream fileIn;
+		fileIn.open("previousGames.txt");
+		string text;
+		int count = 1;
+		while (!fileIn.eof()) {
+			getline(fileIn, text);
+			cout << count << "\t" << text << "\t";
+			getline(fileIn, text);
+			cout << text << endl;
+			count++;
+		}
+		fileIn.close();
+		int gameChoice;
+		cin >> gameChoice;
+		string loadedUserName;
+		string loadedPointsStr;
+		fileIn.open("previousGames.txt");
+		for (int i = 1; i < gameChoice; ++i) {
+			getline(fileIn, text);
+			getline(fileIn, text);
+		}
+		getline(fileIn, loadedUserName);
+		getline(fileIn, loadedPointsStr);
+		fileIn.close();
+		int loadedPointsInt = atoi(loadedPointsStr.c_str());
+		player.setUserName(loadedUserName);
+		player.setPoints(loadedPointsInt);
+		cout << endl << "Your username and score have been set to " << player.getUserName();
+		cout << " and\n" << player.returnPoints() << ", respectively." << endl;
+		cin.get();
+	}
+	else {
+		cout << endl << "Enter your name:\n";
+		cin >> response;
+		player.setUserName(response);
+		ofstream fileOut;
+		fileOut.open("previousGames.txt", ios_base::app);
+		if (fileOut) {
+			fileOut << "\n" << player.getUserName() << "\n" << player.returnPoints();
+		}
+		fileOut.close();
+		cout << "Your new player has been saved.\n";
+		cin.get();
+	}
+	
 	cin.get();
 }
 
@@ -331,4 +385,29 @@ void playerGetters(Player player) {
 	directionGetters(player.getDirection());
 	cout << "Bullet fields:\n";
 	bulletGetters(player.getBullet());
+}
+
+void testFileIO() {
+	Player player1("Bob", 50, 50);
+	player1.setPoints(100);
+	Player player2("Sara", 60, 50);
+	player2.setPoints(50);
+	ofstream fileOut;
+	fileOut.open("previousGames.txt");
+	if (fileOut) {
+		fileOut << player1.getUserName() << "\n" << player1.returnPoints() << endl;
+		fileOut << player2.getUserName() << "\n" << player2.returnPoints();
+	}
+	fileOut.close();
+	/*
+	cout << endl << "Highscores:\n" << endl;
+
+	ifstream fileIn("highscores.txt");
+	while (fileIn) {
+		string text;
+		getline(fileIn, text);
+		cout << text << endl;
+	}
+	fileIn.close();
+	*/
 }

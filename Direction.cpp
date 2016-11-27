@@ -40,8 +40,18 @@ void Direction::setDirection(double xComponent, double yComponent) {
 
 void Direction::normalize() {
 	double angle = atan(yComponent / xComponent);
-	yComponent = sin(angle);
-	xComponent = cos(angle);
+	if (xComponent < 0) {
+		xComponent = -1 * abs(cos(angle));
+	}
+	else {
+		xComponent = abs(cos(angle));
+	}
+	if (yComponent < 0) {
+		yComponent = -1 * abs(sin(angle));
+	}
+	else {
+		yComponent = abs(sin(angle));
+	}
 	if (abs(xComponent) < 0.001) {
 		xComponent = 0;
 	}
