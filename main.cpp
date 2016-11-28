@@ -21,7 +21,7 @@ int main() {
 
 	testClasses();
 	//testFileIO();
-	
+
 	string response;
 	Player player;
 	cout << endl << "Would you like to load a previous game? (y/n)\n";
@@ -66,13 +66,13 @@ int main() {
 		ofstream fileOut;
 		fileOut.open("previousGames.txt", ios_base::app);
 		if (fileOut) {
-			fileOut << player.getUserName() << "\n" << player.returnPoints();
+			fileOut << player.getUserName() << "\n" << player.returnPoints() << "\n";
 		}
 		fileOut.close();
 		cout << "Your new player has been saved.\n";
 		cin.get();
 	}
-	
+
 	cin.get();
 }
 
@@ -109,7 +109,7 @@ void testClasses() {
 
 	cout << "The values of x and y component should change from\n";
 	cout << "0 and 1 to 0 and -1, respectively:\n";
-	direction2.setDirection(0,-1);
+	direction2.setDirection(0, -1);
 	directionGetters(direction2);
 
 	// Test Asteroid class:
@@ -262,7 +262,7 @@ void testClasses() {
 	playerGetters(player1);
 
 	//Test non-default constructor
-	Player player2("Jerry",10,15);
+	Player player2("Jerry", 10, 15);
 	cout << "The default player should have an x and y location\n";
 	cout << "of 10 and 15, a points of 0,a user name of 'Jerry' and a direction with an\n";
 	cout << "x and y component of 1 and 0 , respectively:\n";
@@ -311,7 +311,7 @@ void testClasses() {
 
 	//Test move to left of window pane
 	cout << "Test move to left of window pane\n";
-	Direction direction4(-1,0);
+	Direction direction4(-1, 0);
 	player2.setDirection(direction4);
 	player2.setXLocation(0);
 	cout << "x location should not change\n";
@@ -399,9 +399,9 @@ void testFileIO() {
 
 	ifstream fileIn("highscores.txt");
 	while (fileIn) {
-		string text;
-		getline(fileIn, text);
-		cout << text << endl;
+	string text;
+	getline(fileIn, text);
+	cout << text << endl;
 	}
 	fileIn.close();
 	*/
