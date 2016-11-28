@@ -15,12 +15,18 @@ void directionGetters(Direction direction);
 void asteroidGetters(Asteroid asteroid);
 void bulletGetters(Bullet bullet);
 void playerGetters(Player player);
-void testFileIO();
+void createSavedGames();
 
 int main() {
 
 	testClasses();
-	//testFileIO();
+
+	ifstream fileIn;
+	fileIn.open("previousGames.txt");
+	if (!(fileIn.is_open())) {
+		createSavedGames();
+	}
+	fileIn.close();
 
 	string response;
 	Player player;
@@ -66,7 +72,7 @@ int main() {
 		ofstream fileOut;
 		fileOut.open("previousGames.txt", ios_base::app);
 		if (fileOut) {
-			fileOut << player.getUserName() << "\n" << player.returnPoints() << "\n";
+			fileOut << "\n" << player.getUserName() << "\n" << player.returnPoints();
 		}
 		fileOut.close();
 		cout << "Your new player has been saved.\n";
@@ -382,7 +388,7 @@ void playerGetters(Player player) {
 	bulletGetters(player.getBullet());
 }
 
-void testFileIO() {
+void createSavedGames() {
 	Player player1("Bob", 50, 50);
 	player1.setPoints(100);
 	Player player2("Sara", 60, 50);
@@ -394,15 +400,4 @@ void testFileIO() {
 		fileOut << player2.getUserName() << "\n" << player2.returnPoints();
 	}
 	fileOut.close();
-	/*
-	cout << endl << "Highscores:\n" << endl;
-
-	ifstream fileIn("highscores.txt");
-	while (fileIn) {
-	string text;
-	getline(fileIn, text);
-	cout << text << endl;
-	}
-	fileIn.close();
-	*/
 }
