@@ -353,6 +353,52 @@ void testClasses() {
 	cout << "After:\n";
 	playerGetters(player2);
 
+	// Test Collectables
+
+	cout << "Testing the Collectables classes:\n" << endl;
+
+	Direction testDirection(1, 1);
+	Direction testDirection2(3, 3);
+	Points Point10(10, 1, 1, testDirection, 1, 0);
+	cout << "Printing the value of 10, x location of 1, y location of 1, a speed of 1 and a size of 0, and a type of Points" << endl;
+	cout << Point10.getValue() << "" << Point10.getXLocation() << " " << Point10.getYLocation() << " " << " " << Point10.getSpeed() << " " << Point10.getSize() << " " << Point10.getType() << endl;
+	
+	//Default constructor
+	Points Point1;
+	cout << "Printing the value of 0, x location of 0, y location of 0, a speed of 0 and a size of 0, and a type of Points" << endl;
+	cout << Point1.getValue() << "" << Point1.getXLocation() << " " << Point1.getYLocation() << " " << Point1.getSpeed() << " " << Point1.getSize() << " " << Point1.getType() << endl;
+	
+	//Set testers
+	Point1.setValue(2);
+	Point1.setXLocation(3);
+	Point1.setYLocation(3);
+	Point1.setDirection(testDirection2);
+	Point1.setSpeed(2);
+	Point1.setSize(2);
+	cout << "Printing the value of 2, x location of 3, y location of 3, a speed of 2, a size of 2, and a type of Points" << endl;
+	cout << Point1.getValue() << " " << Point1.getXLocation() << " " << Point1.getYLocation() << " " << " " << Point1.getSpeed() << " " << Point1.getSize() << " " << Point1.getType();
+	Point1.move();
+	cout << "New x and Y coords" << endl;
+	cout << Point1.getXLocation() << " " << Point1.getYLocation() << endl;
+	Multiplier dubMult(.5, 1, 1, testDirection, 1, 0);
+	cout << "Printing the Multiplier of .5, x location of 1, y location of 1, a speed of 1 and a size of 0, and a type of Mult";
+	cout << dubMult.getValue() << " " << dubMult.getXLocation() << " " << dubMult.getYLocation() << " " << dubMult.getSpeed() << " " << dubMult.getSize() << " " << dubMult.getType();
+	
+	//Default constructor
+	Multiplier defaultTest();
+	cout << "Printing the value of 0, x location of 0, y location of 0, a speed of 0 and a size of 0, and a type of Points";
+	cout << defaultTest().getValue() << " " << defaultTest().getXLocation() << " " << defaultTest().getYLocation() << " " << defaultTest().getSpeed() << " " << defaultTest().getSize() << " " << defaultTest().getType();
+
+	//Set testers
+	defaultTest().setValue(2);
+	defaultTest().setXLocation(3);
+	defaultTest().setYLocation(3);
+	defaultTest().setDirection(testDirection2);
+	defaultTest().setSpeed(2);
+	defaultTest().setSize(2);
+	cout << "Printing the value of 2, x location of 3, y location of 3, a speed of 2, a size of 2, and a type of Points";
+	cout << defaultTest().getValue() << "" << defaultTest().getXLocation() << " " << defaultTest().getYLocation() << " " << defaultTest().getSpeed() << " " << defaultTest().getSize() << " " << defaultTest().getType();
+
 }
 
 void directionGetters(Direction direction) {
@@ -402,46 +448,4 @@ void createSavedGames() {
 		fileOut << player2.getUserName() << "\n" << player2.returnPoints();
 	}
 	fileOut.close();
-}
-//Collectables tests
-//Points class
-    Direction testDirection(1,1);
-    Direction testDirection2(3,3);
-    Points 10Point(10,1,1,Direction testDirection,1,0);
-    cout<<"Printing the value of 10, x location of 1, y location of 1, a speed of 1 and a size of 0, and a type of Points"<<endl;
-    cout<<10Point.getValue()<<""<<10Point.getXLocation()<<" "<<10Point.getYLocation()<<" "<<" "<<10Point.getSpeed()<<" "<<10Point.getSize()<<" "<<10Point.getType()<<endl;
-    //Default constructor
-    Points 1Point();
-    cout<<"Printing the value of 0, x location of 0, y location of 0, a speed of 0 and a size of 0, and a type of Points"<<endl;
-    cout<<1Point.getValue()<<""<<1Point.getXLocation()<<" "<<1Point.getYLocation()<<" "<<" "<<1Point.getSpeed()<<" "<<1Point.getSize()<<" "<<1Point.getType()<<endl;
-    //Set testers
-    1Point().setValue(2);
-    1Point.setXLocation(3);
-    1Point.setYLocation(3);
-    1Point.setDirection(testDirection2);
-    1Point.setSpeed(2);
-    1Point.setSize(2);
-    cout<<"Printing the value of 2, x location of 3, y location of 3, a speed of 2, a size of 2, and a type of Points"<<endl;
-    cout<<1Point.getValue()<<""<<1Point.getXLocation()<<" "<<1Point.getYLocation()<<" "<<" "<<1Point.getSpeed()<<" "<<1Point.getSize()<<" "<<1Point.getType;
-    1Point.move();
-    cout<<"New x and Y coords"<<endl;
-    cout<<1Point.getXLocation()<<" "<< 1Point.getYLocation<<endl;
-    Multiplier dubMult(.5,1,1,Direction testDirection,1,0);
-    cout<<"Printing the Multiplier of .5, x location of 1, y location of 1, a speed of 1 and a size of 0, and a type of Mult";
-    cout<<dubMult.getValue()<<" "<< dubMult.getXLocation()<<" "<<dubMult.getYLocation()<< " "<< dubMult.getSpeed()<<" "<< dubMult.getSize()<<" "<<dubMult.getType();
-    //Default constructor
-    Multiplier defaultTest();
-    cout<<"Printing the value of 0, x location of 0, y location of 0, a speed of 0 and a size of 0, and a type of Points";
-    cout<<defaultTest.getValue()<<" "<< defaultTest.getXLocation()<<" "<<defaultTest.getYLocation()<< " "<< defaultTest.getSpeed()<<" "<< defaultTest.getSize()<<" "<<defaultTest.getType();
-
-    //Set testers
-    defaultTest.setValue(2);
-    defaultTest.setXLocation(3);
-    defaultTest.setYLocation(3);
-    defaultTest.setDirection(testDirection2);
-    defaultTest.setSpeed(2);
-    defaultTest.setSize(2);
-    cout<<"Printing the value of 2, x location of 3, y location of 3, a speed of 2, a size of 2, and a type of Points";
-    cout<<defaultTest.getValue()<<""<<defaultTest.getXLocation()<<" "<<defaultTest.getYLocation()<<" "<<" "<<defaultTest.getSpeed()<<" "<<defaultTest.getSize()<<" "<defaultTest.getType();
-
 }

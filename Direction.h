@@ -25,13 +25,23 @@ public:
 
 private:
 
+	/*
+	Normalize
+	Requires: nothing
+	Modifies: xComponent, yComponent
+	Effects: changes the values of xComponent and yComponent such
+		that they produce a unit direction length of 1
+	Calls: abs from the Math library for determining each components
+		sign
+	Reason: The direction should be kept as a unit vector so that its
+		magnitude will have no effect on the speed at which either a
+		bullet or asteroid moves
+	*/
 	void normalize();
 
 	double xComponent;
 	double yComponent;
 
 };
-
-
 
 #endif
