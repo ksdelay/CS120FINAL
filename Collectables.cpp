@@ -153,7 +153,7 @@ void Multiplier::setXLocation(int inX)  {
     xLocation = inX;
 }
 void Multiplier::setYLocation(int inY)  {
-    xLocation = inY;
+    yLocation = inY;
 }
 void Multiplier::setSpeed(int inSpeed)  {
     speed = inSpeed;
@@ -169,5 +169,5 @@ void Multiplier::setValue(int inValue){
     value = inValue;
 }
 void Multiplier::interact() {
-    cout<<"1";
+    cout << "1";
 }

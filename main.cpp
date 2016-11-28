@@ -380,7 +380,7 @@ void testClasses() {
 	cout << "speed of 2, a size of 2, and a type of Points:\n";
 	cout << Point1.getValue() << " " << Point1.getXLocation() << " " << Point1.getYLocation() << " " << Point1.getSpeed() << " " << Point1.getSize() << " " << Point1.getType() << endl << endl;
 	Point1.move();
-	cout << "New x and Y coords:\n";
+	cout << "New x and Y coordinates after 'move' is called:\n";
 	cout << Point1.getXLocation() << " " << Point1.getYLocation() << endl << endl;
 	Multiplier dubMult(.5, 1, 1, testDirection, 1, 0);
 	cout << "Printing the Multiplier of .5, x location of 1, y location of\n";
@@ -390,7 +390,7 @@ void testClasses() {
 	//Default constructor
 	Multiplier defaultTest;
 	cout << "Printing the value of 0, x location of 0, y location of 0, a\n";
-	cout << "speed of 0 and a size of 0, and a type of Points:\n";
+	cout << "speed of 0 and a size of 0, and a type of Mult:\n";
 	cout << defaultTest.getValue() << " " << defaultTest.getXLocation() << " " << defaultTest.getYLocation() << " " << defaultTest.getSpeed() << " " << defaultTest.getSize() << " " << defaultTest.getType() << endl << endl;
 
 	//Set testers
@@ -401,7 +401,7 @@ void testClasses() {
 	defaultTest.setSpeed(2);
 	defaultTest.setSize(2);
 	cout << "Printing the value of 2, x location of 3, y location of 3, a\n";
-	cout << "speed of 2, a size of 2, and a type of Points:\n";
+	cout << "speed of 2, a size of 2, and a type of Mult:\n";
 	cout << defaultTest.getValue() << " " << defaultTest.getXLocation() << " " << defaultTest.getYLocation() << " " << defaultTest.getSpeed() << " " << defaultTest.getSize() << " " << defaultTest.getType() << endl << endl;
 }
 
