@@ -2,7 +2,7 @@
 #define TEST_COLLECTABLES_H
 #include"Direction.h"
 #include <iostream>
-#include<string>
+#include <string>
 #include <stdlib.h>
 
 using namespace std;
@@ -134,7 +134,6 @@ protected:
     Direction direction;
     int speed;
     int size;
-
 
 };
 #endif //TEST_COLLECTABLES_H

@@ -10,12 +10,11 @@ void Collectables::setType(string inType) {
     type = inType;
 }
 string Collectables::getType() const {
-    return(type);
+    return type;
 }
 void Collectables::interact() {
 
 }
-
 
 Points::Points(){
     xLocation = 0;
@@ -53,22 +52,22 @@ void Points::respawn() {
 
 }
 int Points::getValue() const {
-    return(value);
+    return value;
 }
 int Points::getXLocation() const{
-    return(xLocation);
+    return xLocation;
 }
 int Points::getYLocation() const{
-    return(yLocation);
+    return yLocation;
 }
 int Points::getSpeed() const{
-    return(speed);
+    return speed;
 }
 int Points::getSize() const{
-    return(size);
+    return size;
 }
 Direction Points::getDirection() const{
-    return(direction);
+    return direction;
 }
 void Points::setXLocation(int inX) {
     xLocation = inX;
@@ -94,7 +93,6 @@ void Points::setValue(int inValue) {
 
 void Points::interact() {
     cout<<"1";
-
 }
 
 
@@ -134,22 +132,22 @@ void Multiplier::respawn() {
 }
 
 double Multiplier::getValue() const {
-    return(value);
+    return value;
 }
 int Multiplier::getXLocation() const {
-    return(xLocation);
+    return xLocation;
 }
 int Multiplier::getYLocation() const {
-    return(yLocation;
+    return yLocation;
 }
 int Multiplier::getSpeed() const {
-    return(speed);
+    return speed;
 }
 int Multiplier::getSize() const {
-    return(size);
+    return size;
 }
 Direction Multiplier::getDirection() const {
-    return(direction);
+    return direction;
 }
 void Multiplier::setXLocation(int inX)  {
     xLocation = inX;
