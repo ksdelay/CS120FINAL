@@ -66,7 +66,7 @@ int main() {
 		ofstream fileOut;
 		fileOut.open("previousGames.txt", ios_base::app);
 		if (fileOut) {
-			fileOut << "\n" << player.getUserName() << "\n" << player.returnPoints();
+			fileOut << player.getUserName() << "\n" << player.returnPoints();
 		}
 		fileOut.close();
 		cout << "Your new player has been saved.\n";
@@ -345,11 +345,6 @@ void testClasses() {
 	cout << "After:\n";
 	playerGetters(player2);
 
-	//??I just set direction4 (-1,0), but direction normalize it to (1,0),so my test player move to left has failed.
-	// here is the test for direction(-1,0)
-	Direction direction7(-1, 0);
-	cout << direction7.getXComponent() << endl;
-	cout << direction7.getYComponent() << endl;
 }
 
 void directionGetters(Direction direction) {
