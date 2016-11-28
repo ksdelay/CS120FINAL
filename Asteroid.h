@@ -10,28 +10,113 @@
 class Asteroid {
 public:
 
+	/*
+	Default Constructor
+	Requires: nothing
+	Modifies: xLocation, yLocation, speed, size, direction
+	Effects: sets default values for all fields
+	Calls: nothing
+	*/
 	Asteroid();
 
+	/*
+	Non-Default Constructor
+	Requires: double values for x and y locations, speed, size, and
+		a direction
+	Modifies: xLocation, yLocation, speed, size, direction
+	Effects: sets input values for all fields
+	Calls: setXLocation, setYLocation, setSpeed, setSize, setDirection
+	*/
 	Asteroid(double xLocation, double yLocation, double speed, double size, Direction direction);
 
+	/*
+	X Location Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns the value of xLocation
+	Calls: nothing
+	*/
 	double getXLocation() const;
 
+	/*
+	Y Location Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns the value of yLocation
+	Calls: nothing
+	*/
 	double getYLocation() const;
 
+	/*
+	Speed Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns the value of speed
+	Calls: nothing
+	*/
 	double getSpeed() const;
 
+	/*
+	Size Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns the value of size
+	Calls: nothing
+	*/
 	double getSize() const;
 
+	/*
+	Direction Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns direction
+	Calls: nothing
+	*/
 	Direction getDirection() const;
 
+	/*
+	X Location Setter
+	Requires: double value for x location
+	Modifies: xLocation
+	Effects: sets the value of xLocation
+	Calls: nothing
+	*/
 	void setXLocation(double xLocation);
 
+	/*
+	Y Location Setter
+	Requires: double value for y location
+	Modifies: yLocation
+	Effects: sets the value of yLocation
+	Calls: nothing
+	*/
 	void setYLocation(double yLocation);
 
+	/*
+	Speed Setter
+	Requires: double value for speed
+	Modifies: speed
+	Effects: sets the value of speed
+	Calls: nothing
+	*/
 	void setSpeed(double speed);
 
+	/*
+	Size Setter
+	Requires: double value for size
+	Modifies: size
+	Effects: sets the value of size
+	Calls: nothing
+	*/
 	void setSize(double size);
 
+	/*
+	Direction Setter
+	Requires: Direction object for direction
+	Modifies: direction
+	Effects: sets the fields within direction
+	Calls: nothing
+	*/
 	void setDirection(Direction direction);
 
 	/*
