@@ -1,139 +1,168 @@
+//
+// Created by Kevin Delay on 11/27/2016
+// Edited by Nick Medor on 12/01/2016
+//
+
 #ifndef TEST_COLLECTABLES_H
 #define TEST_COLLECTABLES_H
+#include"Point.h"
 #include"Direction.h"
 #include <iostream>
 #include <string>
 #include <stdlib.h>
 
 using namespace std;
-class Collectables
-{
+
+class Collectables {
+
 public:
-    /** Default constructor for Collectables
-     * Requires: Nothing
-     * Modifies: value of type
-     * Effects: nothing
-     */
-    Collectables();
-    /** non default constructor
-     * Requires: String
-     * Modifies: Types value
-     * Effects: nothing
-     */
-    Collectables(string type);
-    /**
-     * abstract method to interact with player
-     * Requires: nothing
-     * Modifies: Nothing
-     * Effects: nothing
-     */
-    virtual void interact() = 0;
-    /**
-     * Type Setter
-     * Requires: string
-     * Modifies: Type
-     * Effects: nothing
-     */
-    void setType(string inType);
-    /**
-      *Type getter
-     * Requires: nothing
-     * Modifies: Nothing
-     * Effects: returns type
-     */
-    string getType() const;
+
+	/* 
+	Default Constructor
+	Requires: nothing
+	Modifies: location, direction
+	Effects: sets default values to fields
+	*/
+	Collectables();
+
+	/*
+	Non-default Constructor
+	Requires: Point, Direction
+	Modifies: location, direction
+	Effects: sets fields to inputs
+	Calls: setLocation, setDirection
+	*/
+	Collectables(Point location, Direction direction);
+
+	/*
+	Location Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns location
+	Calls: nothing
+	*/
+	Point getLocation() const;
+
+	/*
+	Direction Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns direction
+	Calls: nothing
+	*/
+	Direction getDirection() const;
+
+	/*
+	Location Setter
+	Requires: Point
+	Modifies: location
+	Effects: sets location
+	Calls: nothing
+	*/
+	void setLocation(Point location);
+
+	/*
+	Direction Setter
+	Requires: Direction
+	Modifies: direction
+	Effects: sets direction
+	Calls: nothing
+	*/
+	void setDirection(Direction direction);
+
+	/*
+	Interact
+	Requires: nothing
+	Modifies: nothing
+	Effects: nothing
+	Calls: nothing
+	*/
+	virtual void interact() = 0;
+
+	/*
+	Move
+	Requires: nothing
+	Modifies: location
+	Effects: moves collectable down the screen depending
+		on its direction; changes xComponent of direction
+		if collectable hits sides of window
+	Calls: checkMove
+	*/
+	void move();
+
+	/*
+	Respawn
+	Requires: nothing
+	Modifies: currently sets x and y to flat value, set to random in future
+	Effects: nothing
+	*/
+	void respawn();
+
 protected:
-    string type;
+
+	Point location;
+	Direction direction;
+
+	/*
+	Check Move
+	Requires: nothing
+	Modifies: nothing
+	Effects: checks collectables location to see if it will
+		still be in the window after a move
+	*/
+	bool checkMove() const;
 
 };
-class Points:public Collectables
-{
+
+class Points:public Collectables {
+
 public:
-    /**
-     * Defualt points constructor
-     * Requires: nothing
-     * Modifies: value, x and y location, size and speed
-     * Effects: nothing
-     */
+
+	/*
+	Defualt Constructor
+	Requires: nothing
+	Modifies: location, direction
+	Effects: sets deafult field values
+	Calls: nothing
+	*/
     Points();
-    /**
-   * Defualt points constructor
-   * Requires: value, x and y location, direction, speed and size
-   * Modifies: value, x and y location, size and speed and direction
-   * Effects: nothing
-   */
-    Points(int inValue, int inX, int inY, Direction inDirection, int inSpeed, int inSize);
-    /**
-     * Move method
-     * Requires:Nothing
-     * Modifies:X and Y location
-     * Effects: moves point
-     */
-    void move();
-    /**
-     * Respawn method
-     * Requires: nothing
-     * Modifies: currently sets x and y to flat value, set to random in future
-     * Effects: nothing
-     */
-    void respawn();
-    //Getters
-    int getValue() const;
-    int getXLocation() const;
-    int getYLocation() const;
-    int getSpeed() const;
-    int getSize() const;
-    Direction getDirection() const;
-    //Setters
-    void setXLocation(int xLocation);
-    void setYLocation(int yLocation);
-    void setSpeed(int inSpeed);
-    void setSize(int size);
-    void setDirection(Direction direction);
-    void setValue(int inValue);
-    virtual void interact() override;
 
-protected:
-    int value;
-    int xLocation;
-    int yLocation;
-    Direction direction;
-    int speed;
-    int size;
+	/*
+	Non-defualt Constructor
+	Requires: Point, Direction
+	Modifies: location, direction
+	Effects: sets fields to inputs
+	Calls: nothing
+	*/
+	Points(Point location, Direction direction);
 
+	virtual void interact() override;
 
 };
-class Multiplier: public Collectables
-{
+
+class Multiplier: public Collectables {
+
 public:
-    //Default constructor
-    Multiplier();
-    //Non defualt
-    Multiplier(double inMult, int inX, int inY, Direction inDirection, int inSpeed, int inSize);
-    void move();
-    void respawn();
-    //Getters
-    double getValue() const;
-    int getXLocation() const;
-    int getYLocation() const;
-    int getSpeed() const;
-    int getSize() const;
-    Direction getDirection() const;
-    //setters
-    void setXLocation(int xLocation);
-    void setYLocation(int yLocation);
-    void setSpeed(int inSpeed);
-    void setSize(int size);
-    void setDirection(Direction direction);
-    void setValue(int inValue);
-    virtual void interact() override;
-protected:
-    double value;
-    int xLocation;
-    int yLocation;
-    Direction direction;
-    int speed;
-    int size;
+
+	/*
+	Default Constructor
+	Requires: nothing
+	Modifies: location, direction
+	Effects: sets default values to fields
+	Calls: nothing
+	*/
+	Multiplier();
+
+	/*
+	Non-default Constructor
+	Requires: Point, Direction
+	Modifies: location, direction
+	Effects: sets fields to inputs
+	Calls: setLocation, setDirection
+	*/
+	Multiplier(Point location, Direction direction);
+
+	virtual void interact() override;
 
 };
 #endif //TEST_COLLECTABLES_H

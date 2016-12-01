@@ -6,6 +6,7 @@
 #define Asreroid_h
 
 #include "Direction.h"
+#include "Point.h"
 
 class Asteroid {
 public:
@@ -13,7 +14,7 @@ public:
 	/*
 	Default Constructor
 	Requires: nothing
-	Modifies: xLocation, yLocation, speed, size, direction
+	Modifies: location, speed, size, direction
 	Effects: sets default values for all fields
 	Calls: nothing
 	*/
@@ -23,29 +24,20 @@ public:
 	Non-Default Constructor
 	Requires: double values for x and y locations, speed, size, and
 		a direction
-	Modifies: xLocation, yLocation, speed, size, direction
+	Modifies: location, speed, size, direction
 	Effects: sets input values for all fields
-	Calls: setXLocation, setYLocation, setSpeed, setSize, setDirection
+	Calls: setLocation, setSpeed, setSize, setDirection
 	*/
-	Asteroid(double xLocation, double yLocation, double speed, double size, Direction direction);
+	Asteroid(Point location, double speed, double size, Direction direction);
 
 	/*
-	X Location Getter
+	Location Getter
 	Requires: nothing
 	Modifies: nothing
-	Effects: returns the value of xLocation
+	Effects: returns location
 	Calls: nothing
 	*/
-	double getXLocation() const;
-
-	/*
-	Y Location Getter
-	Requires: nothing
-	Modifies: nothing
-	Effects: returns the value of yLocation
-	Calls: nothing
-	*/
-	double getYLocation() const;
+	Point getLocation() const;
 
 	/*
 	Speed Getter
@@ -75,22 +67,13 @@ public:
 	Direction getDirection() const;
 
 	/*
-	X Location Setter
-	Requires: double value for x location
-	Modifies: xLocation
-	Effects: sets the value of xLocation
+	Location Setter
+	Requires: Point object for location
+	Modifies: location
+	Effects: sets location
 	Calls: nothing
 	*/
-	void setXLocation(double xLocation);
-
-	/*
-	Y Location Setter
-	Requires: double value for y location
-	Modifies: yLocation
-	Effects: sets the value of yLocation
-	Calls: nothing
-	*/
-	void setYLocation(double yLocation);
+	void setLocation(Point location);
 
 	/*
 	Speed Setter
@@ -122,7 +105,7 @@ public:
 	/*
 	Move
 	Requires: nothing
-	Modifies: xLocation, yLocation
+	Modifies: location
 	Effects: Provides the movement that animates the asteroid so
 		that it is falling towards the player by changing its x
 		and y coordinates accordingly based off of its speed and
@@ -171,8 +154,7 @@ public:
 
 private:
 
-	double xLocation;
-	double yLocation;
+	Point location;
 	double speed;
 	double size;
 	Direction direction;

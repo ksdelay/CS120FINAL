@@ -5,26 +5,19 @@
 #include "Asteroid.h"
 
 Asteroid::Asteroid() {
-	xLocation = 0;
-	yLocation = 0;
 	speed = 1;
 	size = 1;
 }
 
-Asteroid::Asteroid(double xLocation, double yLocation, double speed, double size, Direction direction) {
-	setXLocation(xLocation);
-	setYLocation(yLocation);
+Asteroid::Asteroid(Point location, double speed, double size, Direction direction) {
+	setLocation(location);
 	setSpeed(speed);
 	setSize(size);
 	setDirection(direction);
 }
 
-double Asteroid::getXLocation() const {
-	return xLocation;
-}
-
-double Asteroid::getYLocation() const {
-	return yLocation;
+Point Asteroid::getLocation() const {
+	return location;
 }
 
 double Asteroid::getSpeed() const {
@@ -39,12 +32,8 @@ Direction Asteroid::getDirection() const {
 	return direction;
 }
 
-void Asteroid::setXLocation(double xLocation) {
-	this->xLocation = xLocation;
-}
-
-void Asteroid::setYLocation(double yLocation) {
-	this->yLocation = yLocation;
+void Asteroid::setLocation(Point location) {
+	this->location = location;
 }
 
 void Asteroid::setSpeed(double speed) {
@@ -59,15 +48,15 @@ void Asteroid::setDirection(Direction direction) {
 }
 
 void Asteroid::move() {
-	if ((xLocation + speed*direction.getXComponent()) <= 0 || (xLocation + speed*direction.getXComponent()) >= 250) { // the 250 value is dependent on the size of the game's window pane
+	if ((location.getXCoordinate() + speed*direction.getXComponent()) <= 0 || (location.getXCoordinate() + speed*direction.getXComponent()) >= 250) { // the 250 value is dependent on the size of the game's window pane
 		direction.setXComponent(direction.getXComponent()*-1);
 	}
-	if ((yLocation - speed) < -5) {
+	if ((location.getYCoordinate() - speed) < -1) {
 		respawn();
 	}
 	else {
-		yLocation = yLocation - speed;
-		xLocation = xLocation + speed*direction.getXComponent();
+		location.setYCoordinate(location.getYCoordinate() - speed);
+		location.setXCoordinate(location.getXCoordinate() + speed*direction.getXComponent());
 	}
 }
 
@@ -83,5 +72,5 @@ void Asteroid::hit() {
 }
 
 void Asteroid::respawn() {
-	yLocation = 250; // this value is dependent on the size of the game's window pane
+	location.setYCoordinate(250); // this value is dependent on the size of the game's window pane
 }
