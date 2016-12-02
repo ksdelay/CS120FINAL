@@ -16,6 +16,7 @@
 #else
 #include <GL/glut.h>
 #endif
+#include <cmath>
 
 #include "Asteroid.h"
 #include <iostream>
@@ -25,6 +26,11 @@
 #include "Bullet.h"
 #include "Collectables.h"
 
+GLdouble width, height;
+int wd;
+
+int triX;
+int triY;
 using namespace std;
 
 void testClasses();
@@ -37,10 +43,100 @@ void multiplierGetters(Multiplier multiplier);
 void createSavedGames();
 void loadGame();
 
-GLdouble width, height;
 
-int main() {
 
+void initGL() {
+	// Set "clearing" or background color
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
+}
+
+void display()
+{
+	glViewport(0, 0, width, height);
+
+	// do an orthographic parallel projection with the coordinate
+	// system set to first quadrant, limited by screen/window size
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0, width, 0.0, height, -1.f, 1.f);
+
+
+
+	glClear(GL_COLOR_BUFFER_BIT);   // Clear the color buffer with current clearing color
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLES);
+	glColor3f(0.1, 0.2, 0.3);
+	glVertex3f(triX, triY, 0);
+	glVertex3f(triX+100, triY, 0);
+	glVertex3f(triX+50, triY+150, 0);
+	glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 50, 0);
+	glVertex3f(500, 50, 0);
+	glVertex3f(500, 0, 0);
+	glEnd();
+	glFlush();
+}
+
+void kbd(unsigned char key, int x, int y)
+{
+	// escape
+	if (key == 27) {
+		glutDestroyWindow(wd);
+		exit(0);
+	}
+
+	return;
+}
+
+void kbdS(int key, int x, int y) {
+	if (key == GLUT_KEY_LEFT) {
+		if (triX - 10 >= 0)
+		{
+			triX -= 10;
+		}
+	}
+
+	if (key == GLUT_KEY_RIGHT)
+	{
+		if (triX + 110 <= 500)
+		{
+			triX += 10;
+		}
+		
+	}
+	glutPostRedisplay();
+
+	return;
+}
+int main(int argc, char** argv) {
+	glutInit(&argc, argv);          // Initialize GLUT
+
+	glutInitDisplayMode(GLUT_RGBA);
+	width = 500;
+	height = 500;
+	triX = 50;
+	triY = 50;
+	glutInitWindowSize((int)width, (int)height);
+	glutInitWindowPosition(100, 500); // Position the window's initial top-left corner
+									  /* create the window and store the handle to it */
+	wd = glutCreateWindow("Fun with Drawing!" /* title */);
+
+
+	glutDisplayFunc(display);       // Register callback handler for window re-paint event
+	initGL();                       // Our own OpenGL initialization
+									// register keyboard press event processing function
+									// works for numbers, letters, spacebar, etc.
+	glutKeyboardFunc(kbd);
+
+	// register special event: function keys, arrows, etc.
+	glutSpecialFunc(kbdS);
+
+	glutMainLoop();                 // Enter the event-processing loop
+	
 	testClasses();
 	loadGame();
 
