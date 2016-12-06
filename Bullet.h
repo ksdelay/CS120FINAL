@@ -38,6 +38,50 @@ public:
 	Calls: nothing
 	*/
 	Point getLocation() const;
+	/*
+	X coord Getter
+	Requires: Nothing
+	Modifies:Nothing
+	Effects: Returns X coordinate
+	Calls:
+	points x coord getter
+	*/
+	double getXCoord() const;
+
+	/*
+	Y coord Getter
+	Requires: Nothing
+	Modifies:Nothing
+	Effects: Returns Y coordinate
+	Calls:
+	points Y coord getter
+	*/
+	double getYCoord() const;
+	/*
+	Score Setter
+	Requires: nothing
+	Modifies: points
+	Effects: sets the score
+	Calls: nothing
+	*/
+
+	/*
+	X coord setter
+	Requires:double X
+	Modifies:locations x Coord
+	Effects:Changes X Coord to given double
+	Calls: Location x coord setter
+	*/
+	void setXCoord(double x);
+
+	/*
+	X coord setter
+	Requires:double X
+	Modifies:locations x Coord
+	Effects:Changes X Coord to given double
+	Calls: Location x coord setter
+	*/
+	void setYCoord(double y);
 
 	/*
 	Location Setter

@@ -18,6 +18,22 @@ Point Bullet::getLocation() const {
 	return location;
 }
 
+
+double Bullet::getXCoord() const {
+	return(location.getXCoordinate());
+}
+
+double Bullet::getYCoord() const {
+	return(location.getYCoordinate());
+}
+void Bullet::setXCoord(double x)
+{
+	location.setXCoordinate(x);
+}
+void Bullet::setYCoord(double y)
+{
+	location.setYCoordinate(y);
+}
 void Bullet::setLocation(Point location) {
 	this->location = location;
 }
