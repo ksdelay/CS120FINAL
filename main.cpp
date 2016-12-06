@@ -31,7 +31,11 @@ int wd;
 
 int triX;
 int triY;
+Point x(50.0, 50.0);
+Player character("Kevin", x);
 using namespace std;
+
+
 
 void testClasses();
 void directionGetters(Direction direction);
@@ -67,9 +71,9 @@ void display()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBegin(GL_TRIANGLES);
 	glColor3f(0.1, 0.2, 0.3);
-	glVertex3f(triX, triY, 0);
-	glVertex3f(triX+100, triY, 0);
-	glVertex3f(triX+50, triY+150, 0);
+	glVertex2f(character.getXCoord(), character.getYCoord());
+	glVertex2f(character.getXCoord()+100, character.getYCoord());
+	glVertex2f(character.getXCoord()+50, character.getYCoord()+150);
 	glEnd();
 	glBegin(GL_QUADS);
 	glColor3f(0.0, 1.0, 0.0);
@@ -94,18 +98,12 @@ void kbd(unsigned char key, int x, int y)
 
 void kbdS(int key, int x, int y) {
 	if (key == GLUT_KEY_LEFT) {
-		if (triX - 10 >= 0)
-		{
-			triX -= 10;
-		}
+		character.moveLeft();
 	}
 
 	if (key == GLUT_KEY_RIGHT)
 	{
-		if (triX + 110 <= 500)
-		{
-			triX += 10;
-		}
+		character.moveRight();
 		
 	}
 	glutPostRedisplay();
@@ -113,29 +111,36 @@ void kbdS(int key, int x, int y) {
 	return;
 }
 int main(int argc, char** argv) {
-	glutInit(&argc, argv);          // Initialize GLUT
+	int decision;
+	cout << "1 for text 2 for graphics:";
+	cin >> decision;
 
-	glutInitDisplayMode(GLUT_RGBA);
-	width = 500;
-	height = 500;
-	triX = 50;
-	triY = 50;
-	glutInitWindowSize((int)width, (int)height);
-	glutInitWindowPosition(100, 500); // Position the window's initial top-left corner
-									  /* create the window and store the handle to it */
-	wd = glutCreateWindow("Fun with Drawing!" /* title */);
+	if (decision==2) {
+		glutInit(&argc, argv);          // Initialize GLUT
+
+		glutInitDisplayMode(GLUT_RGBA);
+		width = 500;
+		height = 500;
+		triX = 50;
+		triY = 50;
+
+		glutInitWindowSize((int)width, (int)height);
+		glutInitWindowPosition(100, 500); // Position the window's initial top-left corner
+										  /* create the window and store the handle to it */
+		wd = glutCreateWindow("Fun with Drawing!" /* title */);
 
 
-	glutDisplayFunc(display);       // Register callback handler for window re-paint event
-	initGL();                       // Our own OpenGL initialization
-									// register keyboard press event processing function
-									// works for numbers, letters, spacebar, etc.
-	glutKeyboardFunc(kbd);
+		glutDisplayFunc(display);       // Register callback handler for window re-paint event
+		initGL();                       // Our own OpenGL initialization
+										// register keyboard press event processing function
+										// works for numbers, letters, spacebar, etc.
+		glutKeyboardFunc(kbd);
 
-	// register special event: function keys, arrows, etc.
-	glutSpecialFunc(kbdS);
+		// register special event: function keys, arrows, etc.
+		glutSpecialFunc(kbdS);
 
-	glutMainLoop();                 // Enter the event-processing loop
+		glutMainLoop();
+	}// Enter the event-processing loop
 	
 	testClasses();
 	loadGame();

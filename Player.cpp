@@ -30,6 +30,21 @@ Point Player::getLocation() const {
 	return location;
 }
 
+double Player::getXCoord() const {
+	return(location.getXCoordinate());
+}
+
+double Player::getYCoord() const {
+	return(location.getYCoordinate());
+}
+void Player::setXCoord(double x)
+{
+	location.setXCoordinate(x);
+}
+void Player::setYCoord(double y)
+{
+	location.setYCoordinate(y);
+}
 void Player::setScore(int score) {
 	this->score = score;
 }
@@ -50,22 +65,22 @@ void Player::moveLeft() {
 	if (checkMoveLeft()) {
 		location.setXCoordinate(location.getXCoordinate() - 2);
 	}
-	else {
-		location.setXCoordinate(0);
-	}
+	//else {
+		//location.setXCoordinate(0);
+	//}
 }
 
 void Player::moveRight() {
 	if (checkMoveRight()) {
 		location.setXCoordinate(location.getXCoordinate() + 2);
 	}
-	else {
-		location.setXCoordinate(250); // depends on width of window pane
-	}
+	//else {
+	//	location.setXCoordinate(250); // depends on width of window pane
+	//}
 }
 
 bool Player::checkMoveLeft() const {
-	if (location.getXCoordinate() - 2 < 0) {
+	if (location.getXCoordinate() - 2<0) {
 		return false;
 	}
 	else {
@@ -74,7 +89,7 @@ bool Player::checkMoveLeft() const {
 }
 
 bool Player::checkMoveRight() const {
-	if (location.getXCoordinate() + 2 > 250) { // depends on width of window pane
+	if (location.getXCoordinate()+110 >= 500 ) { // depends on width of window pane
 		return false;
 	}
 	else {
