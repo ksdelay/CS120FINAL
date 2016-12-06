@@ -33,6 +33,7 @@ int triX;
 int triY;
 Point x(50.0, 50.0);
 Player character("Kevin", x);
+Asteroid asteroid;
 using namespace std;
 
 
@@ -46,8 +47,7 @@ void pointsGetters(Points points);
 void multiplierGetters(Multiplier multiplier);
 void createSavedGames();
 void loadGame();
-
-
+void moveAsteroid();
 
 void initGL() {
 	// Set "clearing" or background color
@@ -75,6 +75,7 @@ void display()
 	glVertex2f(character.getXCoord()+100, character.getYCoord());
 	glVertex2f(character.getXCoord()+50, character.getYCoord()+150);
 	glEnd();
+
 	glBegin(GL_QUADS);
 	glColor3f(0.0, 1.0, 0.0);
 	glVertex3f(0, 0, 0);
@@ -82,7 +83,24 @@ void display()
 	glVertex3f(500, 50, 0);
 	glVertex3f(500, 0, 0);
 	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(0.28f, 0.23f, 0.54f);
+	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate());
+	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
+	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
+	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate());
+	glEnd();
+
 	glFlush();
+
+	glutIdleFunc(moveAsteroid);
+
+}
+
+void moveAsteroid() {
+	asteroid.move();
+	glutPostRedisplay();
 }
 
 void kbd(unsigned char key, int x, int y)
@@ -123,6 +141,7 @@ int main(int argc, char** argv) {
 		height = 500;
 		triX = 50;
 		triY = 50;
+		asteroid.setDirection(Direction(1, -1));
 
 		glutInitWindowSize((int)width, (int)height);
 		glutInitWindowPosition(100, 500); // Position the window's initial top-left corner
