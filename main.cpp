@@ -25,18 +25,25 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Collectables.h"
-
+#include <vector>
 GLdouble width, height;
 int wd;
 
-int triX;
-int triY;
+//int triX;
+//int triY;
 Point x(50.0, 50.0);
+Point BulletPoint(550, 550);
+Bullet shooter(BulletPoint);
+Bullet shooter2(BulletPoint);
+Bullet shooter3(BulletPoint);
 Player character("Kevin", x);
-Asteroid asteroid;
+Asteroid asteroidNumeroUno;
+Asteroid asteroidNumeroDos;
+Asteroid asteroidNumeroTres;
+vector<Bullet> playerBullets = {shooter, shooter2, shooter3};
+vector<Asteroid> asteroidList = {asteroidNumeroUno, asteroidNumeroDos, asteroidNumeroTres};
+
 using namespace std;
-
-
 
 void testClasses();
 void directionGetters(Direction direction);
@@ -47,7 +54,8 @@ void pointsGetters(Points points);
 void multiplierGetters(Multiplier multiplier);
 void createSavedGames();
 void loadGame();
-void moveAsteroid();
+void idleFuncts();
+
 
 void initGL() {
 	// Set "clearing" or background color
@@ -72,10 +80,10 @@ void display()
 	glBegin(GL_TRIANGLES);
 	glColor3f(0.1, 0.2, 0.3);
 	glVertex2f(character.getXCoord(), character.getYCoord());
-	glVertex2f(character.getXCoord()+100, character.getYCoord());
-	glVertex2f(character.getXCoord()+50, character.getYCoord()+150);
+	glVertex2f(character.getXCoord() + 100, character.getYCoord());
+	glVertex2f(character.getXCoord() + 50, character.getYCoord() + 150);
 	glEnd();
-
+	//Green Bottom
 	glBegin(GL_QUADS);
 	glColor3f(0.0, 1.0, 0.0);
 	glVertex3f(0, 0, 0);
@@ -83,25 +91,47 @@ void display()
 	glVertex3f(500, 50, 0);
 	glVertex3f(500, 0, 0);
 	glEnd();
+	//Test Bullet
+	for (int i = 0; i < playerBullets.size(); ++i) {
+		glBegin(GL_QUADS);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(playerBullets[i].getXCoord(), playerBullets[i].getYCoord());
+		glVertex2f(playerBullets[i].getXCoord() + 30, playerBullets[i].getYCoord());
+		glVertex2f(playerBullets[i].getXCoord() + 30, playerBullets[i].getYCoord() + 30);
+		glVertex2f(playerBullets[i].getXCoord(), playerBullets[i].getYCoord() + 30);
+		glEnd();
+	}
 
+	//Test asteroid
 	glBegin(GL_QUADS);
 	glColor3f(0.28f, 0.23f, 0.54f);
-	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate());
-	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
-	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
-	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate());
+	glVertex2i(asteroidNumeroUno.getLocation().getXCoordinate(), asteroidNumeroUno.getLocation().getYCoordinate());
+	glVertex2i(asteroidNumeroUno.getLocation().getXCoordinate(), asteroidNumeroUno.getLocation().getYCoordinate() + asteroidNumeroUno.getSize() * 50);
+	glVertex2i(asteroidNumeroUno.getLocation().getXCoordinate() + asteroidNumeroUno.getSize() * 50, asteroidNumeroUno.getLocation().getYCoordinate() + asteroidNumeroUno.getSize() * 50);
+	glVertex2i(asteroidNumeroUno.getLocation().getXCoordinate() + asteroidNumeroUno.getSize() * 50, asteroidNumeroUno.getLocation().getYCoordinate());
 	glEnd();
 
 	glFlush();
 
-	glutIdleFunc(moveAsteroid);
-
+	glutIdleFunc(idleFuncts);
 }
 
-void moveAsteroid() {
-	asteroid.move();
-	glutPostRedisplay();
-}
+	void idleFuncts() {
+		asteroidNumeroUno.move();
+		for (int i = 0; i < playerBullets.size(); ++i)
+		{
+			if ((playerBullets[i].getInUse())) {
+				playerBullets[i].move();
+			}
+		}
+		//if (shooter.getInUse())
+		//{
+		//	shooter.move();
+		//}
+		glutPostRedisplay();
+	}
+
+
 
 void kbd(unsigned char key, int x, int y)
 {
@@ -110,7 +140,26 @@ void kbd(unsigned char key, int x, int y)
 		glutDestroyWindow(wd);
 		exit(0);
 	}
-
+	if (key == 32) {
+		for (int i = 0; i < playerBullets.size(); ++i)
+		{
+			if (!(playerBullets[i].getInUse())) {
+				playerBullets[i].setInUse(true);
+				playerBullets[i].setXCoord(character.getXCoord() + 50);
+				playerBullets[i].setYCoord(character.getYCoord() + 150);
+				i = playerBullets.size();
+			}
+		}
+		//
+		//if (!(shooter.getInUse())) {
+		//	shooter.setXCoord(character.getXCoord()+50);
+		//	shooter.setYCoord(character.getYCoord()+150);
+		//	shooter.setInUse(true);
+		//}
+		
+		
+	}
+	glutPostRedisplay();
 	return;
 }
 
@@ -130,7 +179,7 @@ void kbdS(int key, int x, int y) {
 }
 int main(int argc, char** argv) {
 	int decision;
-	cout << "1 for text 2 for graphics:";
+	cout << "1 for text 2 for graphics: ";
 	cin >> decision;
 
 	if (decision==2) {
@@ -139,17 +188,17 @@ int main(int argc, char** argv) {
 		glutInitDisplayMode(GLUT_RGBA);
 		width = 500;
 		height = 500;
-		triX = 50;
-		triY = 50;
-		asteroid.setDirection(Direction(1, -1));
+		asteroidNumeroUno.setDirection(Direction(1, -1));
+		//triX = 50;
+		//triY = 50;
 
 		glutInitWindowSize((int)width, (int)height);
-		glutInitWindowPosition(100, 500); // Position the window's initial top-left corner
+		glutInitWindowPosition(200, 70); // Position the window's initial top-left corner
 										  /* create the window and store the handle to it */
 		wd = glutCreateWindow("Fun with Drawing!" /* title */);
 
 
-		glutDisplayFunc(display);       // Register callback handler for window re-paint event
+		glutDisplayFunc(display);     // Register callback handler for window re-paint event
 		initGL();                       // Our own OpenGL initialization
 										// register keyboard press event processing function
 										// works for numbers, letters, spacebar, etc.

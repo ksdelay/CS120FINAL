@@ -58,12 +58,20 @@ public:
 	*/
 	double getYCoord() const;
 	/*
-	Score Setter
-	Requires: nothing
-	Modifies: points
-	Effects: sets the score
-	Calls: nothing
+	in use getter
+	Requires: Nothing
+	Modifies: nothing
+	Effects: returns inUse variable
 	*/
+	bool getInUse() const;
+	/*
+	In Use Setter
+	Requires: Boolean value
+	Modifies: Bool inUse value
+	Effects: changes inUse to given boolean
+	Calls: Nothing
+	*/
+	void setInUse(bool use);
 
 	/*
 	X coord setter
@@ -110,10 +118,18 @@ public:
 	Calls: nothing
 	*/
 	void hit();
-
+	/*
+	Respawn
+	Requires: Nothing
+	Modifies: Nothing
+	Effects: Nothing
+	Calls: Nothing
+	*/
+	void respawn();
 private:
 
 	Point location;
+	bool inUse;
 
 };
 

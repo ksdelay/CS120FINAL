@@ -12,6 +12,7 @@ Bullet::Bullet() {
 
 Bullet::Bullet(Point location) {
 	setLocation(location);
+	inUse = false;
 }
 
 Point Bullet::getLocation() const {
@@ -26,6 +27,13 @@ double Bullet::getXCoord() const {
 double Bullet::getYCoord() const {
 	return(location.getYCoordinate());
 }
+bool Bullet::getInUse() const {
+	return(inUse);
+}
+void Bullet::setInUse(bool active)
+{
+	inUse = active;
+}
 void Bullet::setXCoord(double x)
 {
 	location.setXCoordinate(x);
@@ -39,9 +47,19 @@ void Bullet::setLocation(Point location) {
 }
 
 void Bullet::move() {
-	location.setYCoordinate(location.getYCoordinate() + 5);
+	if (!(location.getYCoordinate() + .05 >= 499)) {
+		location.setYCoordinate(location.getYCoordinate() + .05);
+	}
+	else {
+		respawn();
+	}
 }
 
 void Bullet::hit() {
 	// not sure what to do here yet
+}
+void Bullet::respawn() {
+	location.setXCoordinate(700);
+	location.setYCoordinate(700);
+	inUse = false;
 }
