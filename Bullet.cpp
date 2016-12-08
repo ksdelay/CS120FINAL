@@ -47,8 +47,8 @@ void Bullet::setLocation(Point location) {
 }
 
 void Bullet::move() {
-	if (!(location.getYCoordinate() + .05 >= 499)) {
-		location.setYCoordinate(location.getYCoordinate() + .05);
+	if (!(location.getYCoordinate() + .1 >= 499)) {
+		location.setYCoordinate(location.getYCoordinate() + .1);
 	}
 	else {
 		respawn();

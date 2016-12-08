@@ -36,9 +36,9 @@ void Collectables::move() {
 	if (checkMove()) {
 		direction.setXComponent(-1 * direction.getXComponent());
 	}
-	location.setXCoordinate(location.getXCoordinate() + 2 * direction.getXComponent());
-	if (location.getYCoordinate() > -5) {
-		location.setYCoordinate(location.getYCoordinate() - 1);
+	location.setXCoordinate(location.getXCoordinate() + 0.025 * direction.getXComponent());
+	if (location.getYCoordinate() > 50) {
+		location.setYCoordinate(location.getYCoordinate() - 0.025);
 	}
 	else {
 		respawn();
@@ -46,11 +46,11 @@ void Collectables::move() {
 }
 
 void Collectables::respawn() {
-	location.setYCoordinate(250);
+	location.setYCoordinate(550);
 }
 
 bool Collectables::checkMove() const {
-	if (location.getXCoordinate() + 2 * direction.getXComponent() < 0 || location.getXCoordinate() + 2 * direction.getXComponent() > 250) {
+	if (location.getXCoordinate() + 0.025 * direction.getXComponent() < 0 || location.getXCoordinate() + 0.025 * direction.getXComponent() > 480) {
 		return true;
 	}
 	else {

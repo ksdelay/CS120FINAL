@@ -43,6 +43,15 @@ public:
 	int getScore() const;
 
 	/*
+	Life Getter
+	Requires: nothing
+	Modifies: nothing
+	Effects: returns the value of life
+	Calls: nothing
+	*/
+	int getLife() const;
+
+	/*
 	Username Getter
 	Requires: nothing
 	Modifies: nothing
@@ -79,13 +88,24 @@ public:
 	points Y coord getter
 	*/
 	double getYCoord() const;
+
 	/*
 	Score Setter
 	Requires: nothing
-	Modifies: points
+	Modifies: score
 	Effects: sets the score
 	Calls: nothing
 	*/
+	void setScore(int score);
+
+	/*
+	Life Setter
+	Requires: nothing
+	Modifies: score
+	Effects: sets the score
+	Calls: nothing
+	*/
+	void setLife(int life);
 
 	/*
 	X coord setter
@@ -104,7 +124,6 @@ public:
 	Calls: Location x coord setter
 	*/
 	void setYCoord(double y);
-	void setScore(int score);
 
 	/*
 	Username Setter
@@ -155,6 +174,7 @@ public:
 private:
 
     int score;
+	int life;
     string userName;
 	Point location;
 

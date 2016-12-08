@@ -105,7 +105,7 @@ public:
 	Requires: nothing
 	Modifies: location
 	Effects: increase yCoordinate of location so that the
-		bullet moves up the screen
+	bullet moves up the screen
 	Calls: nothing
 	*/
 	void move();

@@ -3,10 +3,9 @@
 //
 
 #include "Asteroid.h"
-#include <cmath>
 
 Asteroid::Asteroid() {
-	speed = 0.05;
+	speed = 0.035;
 	size = 1;
 }
 
@@ -49,10 +48,10 @@ void Asteroid::setDirection(Direction direction) {
 }
 
 void Asteroid::move() {
-	if ((location.getXCoordinate() + speed*direction.getXComponent()) <= 0 || (location.getXCoordinate() + speed*direction.getXComponent()) >= 500) { // the 250 value is dependent on the size of the game's window pane
+	if ((location.getXCoordinate() + speed*direction.getXComponent()) <= 0 || (location.getXCoordinate() + speed*direction.getXComponent()) >= (500 - size*50)) { // the 250 value is dependent on the size of the game's window pane
 		direction.setXComponent(direction.getXComponent()*-1);
 	}
-	else if ((location.getYCoordinate() - speed*direction.getYComponent()) <= 50) {
+	if ((location.getYCoordinate() - speed) < 49) {
 		respawn();
 	}
 	else {
@@ -62,16 +61,16 @@ void Asteroid::move() {
 }
 
 void Asteroid::hit() {
-	if (size == 0) {
+	if (size == 0.5) {
 		setSize(1);
 		setSpeed(speed*1.05);
 		respawn();
 	}
 	else {
-		size--;
+		size = size - 0.5;
 	}
 }
 
 void Asteroid::respawn() {
-	location.setYCoordinate(rand() % 100 + 550); // this value is dependent on the size of the game's window pane
+	location.setYCoordinate(500); // this value is dependent on the size of the game's window pane
 }
