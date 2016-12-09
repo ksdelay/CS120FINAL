@@ -9,6 +9,8 @@ Asteroid::Asteroid() {
 	speed = 0.035;
 	size = 1;
 	direction.setDirection(randDouble(.01, 1), randDouble(.01, 1));
+	location.setXCoordinate(0);
+	location.setYCoordinate(500);
 }
 
 Asteroid::Asteroid(Point location, double speed, double size, Direction direction) {
