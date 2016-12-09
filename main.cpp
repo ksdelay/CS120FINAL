@@ -52,8 +52,11 @@ bool startGame = false;
 bool pausedGame = false;
 bool menuColor1 = true;
 bool menuColor2 = true;
+bool menuColor3 = true;
+bool menuColor4 = true;
 bool gameOver = false;
 bool savedGame = false;
+bool showInstructions = false;
 using namespace std;
 
 
@@ -69,6 +72,7 @@ void createSavedGames();
 void loadGame();
 void drawGame();
 void drawMenu();
+void drawInstructions();
 void idleFunc();
 void drawGameOver();
 bool bulletAsteroidOverlap(int asteroidNum);
@@ -216,24 +220,177 @@ void drawGame() {
 
 void drawMenu() {
 
+	if (!showInstructions) {
+		glBegin(GL_QUADS);
+		if (menuColor1) {
+			glColor3f(1.0, 1.0, 1.0);
+		}
+		else {
+			glColor3f(0.0, 1.0, 0.0);
+		}
+		glVertex3f(180, 290, 0);
+		glVertex3f(180, 320, 0);
+		glVertex3f(340, 320, 0);
+		glVertex3f(340, 290, 0);
+		glEnd();
+
+		string menuMessage1 = "Start Game";
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glRasterPos2i(200, 300);
+		for (int c = 0; c < menuMessage1.length(); ++c) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, menuMessage1[c]);
+		}
+
+		glBegin(GL_QUADS);
+		if (menuColor3) {
+			glColor3f(1.0, 1.0, 1.0);
+		}
+		else {
+			glColor3f(0.0, 1.0, 0.0);
+		}
+		glVertex3f(180, 210, 0);
+		glVertex3f(180, 240, 0);
+		glVertex3f(340, 240, 0);
+		glVertex3f(340, 210, 0);
+		glEnd();
+
+		string menuMessage2 = "Instructions";
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glRasterPos2i(200, 220);
+		for (int c = 0; c < menuMessage2.length(); ++c) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, menuMessage2[c]);
+		}
+
+		glFlush();
+
+		glutPostRedisplay();
+	}
+	else {
+		drawInstructions();
+	}
+
+}
+
+void drawInstructions() {
+
+	string instructionsMessage1 = "Shoot down asteroids before they reach land.";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 450);
+	for (int c = 0; c < instructionsMessage1.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, instructionsMessage1[c]);
+	}
+
+	string instructionsMessage2 = "Move with left and right arrows, shoot with";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 420);
+	for (int c = 0; c < instructionsMessage2.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, instructionsMessage2[c]);
+	}
+
+	string instructionsMessage3 = "spacebar, pause with 'p', and exit the game with escape. Shoot points and multiplier boxes to";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 390);
+	for (int c = 0; c < instructionsMessage3.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, instructionsMessage3[c]);
+	}
+
+	string instructionsMessage4 = "escape. Shoot points and multiplier boxes to";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 360);
+	for (int c = 0; c < instructionsMessage4.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, instructionsMessage4[c]);
+	}
+
+	string instructionsMessage5 = "increase your score. Good luck!";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 330);
+	for (int c = 0; c < instructionsMessage5.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, instructionsMessage5[c]);
+	}
+
 	glBegin(GL_QUADS);
-	if (menuColor1) {
+	glColor3f(0.545f, 0.0f, 0.0f);
+	glVertex2i(20, 260);
+	glVertex2i(20, 310);
+	glVertex2i(70, 310);
+	glVertex2i(70, 260);
+	glEnd();
+
+	string asteroidLabel = "ASTEROID";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(20, 240);
+	for (int c = 0; c < asteroidLabel.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, asteroidLabel[c]);
+	}
+
+	glBegin(GL_TRIANGLES);
+	glColor3f(0.1, 0.2, 0.3);
+	glVertex2f(100, 260);
+	glVertex2f(150, 260);
+	glVertex2f(125, 310);
+	glEnd();
+
+	string playerLabel = "PLAYER";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(105, 240);
+	for (int c = 0; c < playerLabel.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, playerLabel[c]);
+	}
+
+	glBegin(GL_QUADS);
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex2i(200, 260);
+	glVertex2i(200, 280);
+	glVertex2i(220, 280);
+	glVertex2i(220, 260);
+	glEnd();
+
+	string pointsLabel = "POINTS";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(190, 240);
+	for (int c = 0; c < pointsLabel.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, pointsLabel[c]);
+	}
+
+	glBegin(GL_QUADS);
+	glColor3f(1.0f, 0.412f, 0.706f);
+	glVertex2i(300, 260);
+	glVertex2i(300, 280);
+	glVertex2i(320, 280);
+	glVertex2i(320, 260);
+	glEnd();
+	string multiplierMessage = "x2";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(300, 262);
+	for (int c = 0; c < multiplierMessage.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, multiplierMessage[c]);
+	}
+
+	string multiplierLabel = "MULTIPLIER";
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glRasterPos2i(270, 240);
+	for (int c = 0; c < multiplierLabel.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, multiplierLabel[c]);
+	}
+
+	glBegin(GL_QUADS);
+	if (menuColor4) {
 		glColor3f(1.0, 1.0, 1.0);
 	}
 	else {
 		glColor3f(0.0, 1.0, 0.0);
 	}
-	glVertex3f(180, 290, 0);
-	glVertex3f(180, 320, 0);
-	glVertex3f(340, 320, 0);
-	glVertex3f(340, 290, 0);
+	glVertex3f(180, 50, 0);
+	glVertex3f(180, 80, 0);
+	glVertex3f(340, 80, 0);
+	glVertex3f(340, 50, 0);
 	glEnd();
 
-	string message = "Start Game";
+	string returnMessage = "Return";
 	glColor3f(0.0f, 0.0f, 0.0f);
-	glRasterPos2i(200, 300);
-	for (int c = 0; c < message.length(); ++c) {
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,message[c]);
+	glRasterPos2i(220, 60);
+	for (int c = 0; c < returnMessage.length(); ++c) {
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, returnMessage[c]);
 	}
 
 	glFlush();
@@ -482,6 +639,20 @@ void cursor(int x, int y) {
 		menuColor2 = true;
 	}
 
+	if (x > 180 && x < 340 && (height - y) < 240 && (height - y) > 210) {
+		menuColor3 = false;
+	}
+	else {
+		menuColor3 = true;
+	}
+
+	if (x > 180 && x < 340 && (height - y) < 80 && (height - y) > 50) {
+		menuColor4 = false;
+	}
+	else {
+		menuColor4 = true;
+	}
+
 	glutPostRedisplay();
 }
 
@@ -496,6 +667,12 @@ void mouse(int button, int state, int x, int y) {
 	else if (button == GLUT_LEFT_BUTTON && !menuColor2 && !savedGame) {
 		saveGame();
 	}
+	else if (button == GLUT_LEFT_BUTTON && !menuColor3) {
+		showInstructions = true;
+	}
+	else if (button == GLUT_LEFT_BUTTON && !menuColor4) {
+		showInstructions = false;
+	}
 
 	glutPostRedisplay();
 }
@@ -504,6 +681,11 @@ int main(int argc, char** argv) {
 	int decision;
 	cout << "Enter 1 for testing, 2 for graphics:\n";
 	cin >> decision;
+
+	while (decision != 1 && decision != 2) {
+		cout << "Wrong input, try again:\n";
+		cin >> decision;
+	}
 
 	if (decision==2) {
 
@@ -554,7 +736,7 @@ int main(int argc, char** argv) {
 	testClasses();
 	loadGame();
 
-	cin.get();
+	//cin.get();
 }
 
 void graphicsLoadGame() {
@@ -570,7 +752,11 @@ void graphicsLoadGame() {
 	Player player;
 	cout << endl << "Would you like to load a previous game? (y/n)\n";
 	cin >> response;
-	if (response == "y") {
+	while (response != "y" && response != "n" && response != "Y" && response != "N") {
+		cout << "Wrong input, try again:\n";
+		cin >> response;
+	}
+	if (response == "y" || response =="Y") {
 		cout << "Which game would you like to load? (enter the number)\n";
 		ifstream fileIn;
 		fileIn.open("savedGames.txt");
@@ -589,6 +775,10 @@ void graphicsLoadGame() {
 		fileIn.close();
 		int gameChoice;
 		cin >> gameChoice;
+		while (gameChoice <= 0 || gameChoice > (count - 1)) {
+			cout << "Wrong input, try again:\n";
+			cin >> gameChoice;
+		}
 		string loadedUserName;
 		string loadedPointsStr;
 		string loadedLifeStr;
@@ -619,14 +809,14 @@ void graphicsLoadGame() {
 		asteroid.setSpeed(loadedAsteroidSpeedDouble);
 		cout << endl << "Your username and score have been set to " << character.getUserName();
 		cout << " and\n" << character.getScore() << ", respectively." << endl;
-		cin.get();
+		//cin.get();
 	}
 	else {
 		cout << endl << "Enter your name:\n";
 		cin >> response;
 		character.setUserName(response);
 		cout << "Your new player has been loaded.\n";
-		cin.get();
+		//cin.get();
 	}
 
 }
@@ -1010,7 +1200,7 @@ void loadGame() {
 		player.setScore(loadedPointsInt);
 		cout << endl << "Your username and score have been set to " << player.getUserName();
 		cout << " and\n" << player.getScore() << ", respectively." << endl;
-		cin.get();
+		//cin.get();
 	}
 	else {
 		cout << endl << "Enter your name:\n";
@@ -1023,7 +1213,7 @@ void loadGame() {
 		}
 		fileOut.close();
 		cout << "Your new player has been saved.\n";
-		cin.get();
+		//cin.get();
 	}
 }
 
