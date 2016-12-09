@@ -3,10 +3,12 @@
 //
 
 #include "Asteroid.h"
+#include <cmath>
 
 Asteroid::Asteroid() {
 	speed = 0.035;
 	size = 1;
+	direction.setDirection(randDouble(.01, 1), randDouble(.01, 1));
 }
 
 Asteroid::Asteroid(Point location, double speed, double size, Direction direction) {
@@ -72,5 +74,11 @@ void Asteroid::hit() {
 }
 
 void Asteroid::respawn() {
-	location.setYCoordinate(500); // this value is dependent on the size of the game's window pane
+	location.setYCoordinate(rand() % 100 + 550);
+	direction.setDirection(randDouble(.01, 1), randDouble(.01, 1));// this value is dependent on the size of the game's window pane
+}
+double Asteroid::randDouble(double fMin, double fMax)
+{
+	double f = (double)rand() / RAND_MAX;
+	return fMin + f * (fMax - fMin);
 }

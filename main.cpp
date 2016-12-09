@@ -32,9 +32,15 @@ int wd;
 
 int triX;
 int triY;
+int maxAsteroids = 1;
 Point x(50.0, 50.0);
 Player character("Kevin", x);
 Asteroid asteroid;
+Asteroid asteroid2;
+Asteroid asteroid3;
+Asteroid asteroid4;
+Asteroid asteroid5;
+vector<Asteroid> asteroids = { asteroid,asteroid2,asteroid3,asteroid4,asteroid5 };
 Points points;
 Multiplier multiplier;
 Point BulletPoint(550, 550);
@@ -65,7 +71,7 @@ void drawGame();
 void drawMenu();
 void idleFunc();
 void drawGameOver();
-bool bulletAsteroidOverlap();
+bool bulletAsteroidOverlap(int asteroidNum);
 bool bulletCollectablesOverlap(Collectables& collectable);
 void drawPauseMenu();
 void graphicsLoadGame();
@@ -130,14 +136,15 @@ void drawGame() {
 	glEnd();
 
 	// Draw Asteroid
-
-	glBegin(GL_QUADS);
-	glColor3f(0.545f, 0.0f, 0.0f);
-	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate());
-	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
-	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
-	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate());
-	glEnd();
+	for (int i = 0; i < asteroids.size(); ++i) {
+		glBegin(GL_QUADS);
+		glColor3f(0.545f, 0.0f, 0.0f);
+		glVertex2i(asteroids[i].getLocation().getXCoordinate(), asteroids[i].getLocation().getYCoordinate());
+		glVertex2i(asteroids[i].getLocation().getXCoordinate(), asteroids[i].getLocation().getYCoordinate() + asteroids[i].getSize() * 50);
+		glVertex2i(asteroids[i].getLocation().getXCoordinate() + asteroids[i].getSize() * 50, asteroids[i].getLocation().getYCoordinate() + asteroids[i].getSize() * 50);
+		glVertex2i(asteroids[i].getLocation().getXCoordinate() + asteroids[i].getSize() * 50, asteroids[i].getLocation().getYCoordinate());
+		glEnd();
+	}
 
 	// Draw Points
 
@@ -237,9 +244,29 @@ void drawMenu() {
 
 void idleFunc() {
 	if (startGame) {
-		if (bulletAsteroidOverlap()) {
-			asteroid.hit();
-			character.setScore(character.getScore() + 5);
+		if (character.getScore() <= 100) {
+			maxAsteroids = 1;
+		}
+		else if (character.getScore() <= 200) {
+			maxAsteroids = 2;
+		}
+		else if (character.getScore() <= 300) {
+			maxAsteroids = 3;
+		}
+		else if (character.getScore() <= 400) {
+			maxAsteroids = 4;
+		}
+		else {
+			maxAsteroids = 5;
+		}
+
+
+
+		for (int i = 0; i < maxAsteroids; ++i) {
+			if (bulletAsteroidOverlap(i)) {
+				asteroids[i].hit();
+				character.setScore(character.getScore() + 5);
+			}
 		}
 		if (bulletCollectablesOverlap(points)) {
 			points.respawn();
@@ -249,14 +276,18 @@ void idleFunc() {
 			multiplier.setLocation(Point(0, 1000));
 			character.setScore(character.getScore() * 2);
 		}
-		if ((asteroid.getLocation().getYCoordinate() - asteroid.getSpeed()) < 49) {
-			character.setLife(character.getLife() - 1);
-			if (character.getLife() == 0) {
-				startGame = false;
-				gameOver = true;
+		for (int i = 0; i < maxAsteroids; ++i) {
+			if ((asteroids[i].getLocation().getYCoordinate() - asteroids[i].getSpeed()) < 49) {
+				character.setLife(character.getLife() - 1);
+				if (character.getLife() == 0) {
+					startGame = false;
+					gameOver = true;
+				}
 			}
 		}
-		asteroid.move();
+		for (int i = 0; i < maxAsteroids; ++i) {
+			asteroids[i].move();
+		}
 		points.move();
 		multiplier.move();
 		for (int i = 0; i < playerBullets.size(); ++i) {
@@ -293,18 +324,20 @@ void drawGameOver() {
 
 }
 
-bool bulletAsteroidOverlap() {
+bool bulletAsteroidOverlap(int asteroidNum) {
 
 	for (int i = 0; i < playerBullets.size(); ++i) {
-		if (asteroid.getLocation().getYCoordinate() < (playerBullets[i].getYCoord() + 30) && asteroid.getLocation().getYCoordinate() > playerBullets[i].getYCoord()) {
-			if (asteroid.getLocation().getXCoordinate() < (playerBullets[i].getXCoord() + 30) && asteroid.getLocation().getXCoordinate() > playerBullets[i].getXCoord()) {
-				playerBullets[i].respawn();
-				return true;
-			}
-			else if (playerBullets[i].getXCoord() < (asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50) && playerBullets[i].getXCoord() > asteroid.getLocation().getXCoordinate()) {
-				playerBullets[i].respawn();
-				return true;
-			}
+		
+			if (asteroids[asteroidNum].getLocation().getYCoordinate() < (playerBullets[i].getYCoord() + 30) && asteroids[asteroidNum].getLocation().getYCoordinate() > playerBullets[i].getYCoord()) {
+				if (asteroids[asteroidNum].getLocation().getXCoordinate() < (playerBullets[i].getXCoord() + 30) && asteroids[asteroidNum].getLocation().getXCoordinate() > playerBullets[i].getXCoord()) {
+					playerBullets[i].respawn();
+					return true;
+				}
+				else if (playerBullets[i].getXCoord() < (asteroids[asteroidNum].getLocation().getXCoordinate() + asteroids[asteroidNum].getSize() * 50) && playerBullets[i].getXCoord() > asteroids[asteroidNum].getLocation().getXCoordinate()) {
+					playerBullets[i].respawn();
+					return true;
+				}
+			
 		}
 	}
 	return false;
@@ -483,8 +516,12 @@ int main(int argc, char** argv) {
 		height = 500;
 		triX = 50;
 		triY = 50;
-		asteroid.setDirection(Direction(1, -1));
+		//asteroid.setDirection(Direction(1, -1));
 		asteroid.setLocation(Point(0, 500));
+		asteroid2.setLocation(Point(0, 500));
+		asteroid3.setLocation(Point(0, 500));
+		asteroid4.setLocation(Point(0, 500));
+		asteroid5.setLocation(Point(0, 500));
 		points.setDirection(Direction(-1, -1));
 		points.setLocation(Point(250, 550));
 		multiplier.setDirection(Direction(0.5, -1));

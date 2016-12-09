@@ -151,6 +151,12 @@ public:
 		going.
 	*/
 	void respawn();
+	/*RandDouble
+	Requires: double min and max
+	Modifies: generates a random double between given values
+	Effects: Returns random double
+	*/
+	double randDouble(double min, double max);
 
 private:
 
