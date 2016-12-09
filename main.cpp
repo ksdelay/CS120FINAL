@@ -74,7 +74,7 @@ void saveGame();
 
 void initGL() {
 	// Set "clearing" or background color
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
+	glClearColor(0.529f, 0.808f, 0.922f, 1.0f); // Black and opaque
 }
 
 void display()
@@ -122,7 +122,7 @@ void drawGame() {
 	// Draw Land
 
 	glBegin(GL_QUADS);
-	glColor3f(0.0, 1.0, 0.0);
+	glColor3f(0.0, 0.502, 0.0);
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, 50, 0);
 	glVertex3f(500, 50, 0);
@@ -132,7 +132,7 @@ void drawGame() {
 	// Draw Asteroid
 
 	glBegin(GL_QUADS);
-	glColor3f(0.28f, 0.23f, 0.54f);
+	glColor3f(0.545f, 0.0f, 0.0f);
 	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate());
 	glVertex2i(asteroid.getLocation().getXCoordinate(), asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
 	glVertex2i(asteroid.getLocation().getXCoordinate() + asteroid.getSize() * 50, asteroid.getLocation().getYCoordinate() + asteroid.getSize() * 50);
@@ -142,7 +142,7 @@ void drawGame() {
 	// Draw Points
 
 	glBegin(GL_QUADS);
-	glColor3f(0.4f, 0.1f, 0.4f);
+	glColor3f(1.0f, 1.0f, 0.0f);
 	glVertex2i(points.getLocation().getXCoordinate(), points.getLocation().getYCoordinate());
 	glVertex2i(points.getLocation().getXCoordinate(), points.getLocation().getYCoordinate() + 20);
 	glVertex2i(points.getLocation().getXCoordinate() + 20, points.getLocation().getYCoordinate() + 20);
@@ -152,7 +152,7 @@ void drawGame() {
 	// Draw Multiplier
 
 	glBegin(GL_QUADS);
-	glColor3f(0.4f, 0.3f, 0.4f);
+	glColor3f(1.0f, 0.412f, 0.706f);
 	glVertex2i(multiplier.getLocation().getXCoordinate(), multiplier.getLocation().getYCoordinate());
 	glVertex2i(multiplier.getLocation().getXCoordinate(), multiplier.getLocation().getYCoordinate() + 20);
 	glVertex2i(multiplier.getLocation().getXCoordinate() + 20, multiplier.getLocation().getYCoordinate() + 20);
@@ -376,6 +376,15 @@ void drawPauseMenu() {
 	glRasterPos2i(190, 250);
 	for (int c = 0; c < saveMessage.length(); ++c) {
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, saveMessage[c]);
+	}
+
+	if (savedGame) {
+		string saveConfirmed = "The game was saved.";
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glRasterPos2i(150, 100);
+		for (int c = 0; c < saveConfirmed.length(); ++c) {
+			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, saveConfirmed[c]);
+		}
 	}
 
 	glFlush();

@@ -86,7 +86,7 @@ void Player::moveRight() {
 		location.setXCoordinate(location.getXCoordinate() + 10);
 	}
 	else {
-		location.setXCoordinate(500 - 100); // depends on width of window pane
+		location.setXCoordinate(500 - 50); // depends on width of window pane
 	}
 }
 
